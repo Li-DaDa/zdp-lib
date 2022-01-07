@@ -1,0 +1,12 @@
+/dist
+/lib
+/node_modules
+/public
+/docs
+
+*.md
+*.scss
+*.woff
+*.ttf
+
+.eslintrc.js
