@@ -33,6 +33,7 @@ module.exports = {
     "@typescript-eslint/no-explicit-any": 1,
     "@typescript-eslint/ban-types": "off",
     '@typescript-eslint/no-var-requires': "off",
-    'no-debugger': 'off'
+    'no-debugger': 'off',
+    'no-unused-vars': 'off'
   },
 };

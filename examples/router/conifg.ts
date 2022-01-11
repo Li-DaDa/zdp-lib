@@ -27,6 +27,26 @@ const menus:NavType[] = [
         type: 'vue'
       }
     ]
+  }, {
+    label: '函数',
+    dir: 'function',
+    child: [
+      {
+        label: '测试',
+        tpl: 'test',
+        type: 'md'
+      }
+    ]
+  }, {
+    label: '组件',
+    dir: 'component',
+    child: [
+      {
+        label: '测试',
+        tpl: 'test',
+        type: 'md'
+      }
+    ]
   }
 ]
 

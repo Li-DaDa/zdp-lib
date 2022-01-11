@@ -1,26 +1,28 @@
 
-### 自定义关闭按钮
+## 这是另一个样例
 
-自定义关闭按钮为文字或其他符号。
+`这是一段说明`
 
-:::demo 在 Alert 组件中
+:::demo 这也是一个组件说明
 
 ```html
 <template>
-  <div class="abcd">
-    <div class="dd">assa</div>
+  <div class="abcd" @click="test">
+    调用函数
   </div>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue'
+  import { TestFunction } from '../../../packages'
+
   export default defineComponent({
     setup() {
-      const hello = () => {
-        alert('Hello World!');
+      const test = () => {
+        TestFunction('Hello World')
       }
       return {
-        hello
+        test
       }
     }
   })
@@ -33,6 +35,7 @@
     }
   }
 </style>
+
 ```
 
 :::

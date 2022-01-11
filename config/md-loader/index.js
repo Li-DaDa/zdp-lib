@@ -1,3 +1,4 @@
+
 const md = require('./config');
 const {
   stripScript,
@@ -34,6 +35,8 @@ module.exports = (source) => {
   let start = 0; // 字符串开始位置
   // 收集demo中定义的css
   const styles = [];
+  // 提升的import
+  let importsArr = []
 
   let commentStart = content.indexOf(startTag);
   let commentEnd = content.indexOf(endTag, commentStart + startTagLen);
@@ -45,8 +48,9 @@ module.exports = (source) => {
     const script = stripScript(commentContent);
     const style = stripStyle2(commentContent);
     styles.push(...style);
-    const demoComponentContent = genInlineComponentText(html, script);
     const demoComponentName = `element-demo${id}`;
+    const {demoComponentContent, imports} = genInlineComponentText(html, script, demoComponentName);
+    importsArr = [...importsArr, ...imports]
     output.push(`<template #source><${demoComponentName} /></template>`);
     componentsString += `${JSON.stringify(demoComponentName)}: ${demoComponentContent},`;
 
@@ -63,6 +67,8 @@ module.exports = (source) => {
   if (componentsString) {
     pageScript = `<script lang="ts">
       import * as Vue from 'vue';
+      console.log('aaa')
+      ${importsArr.join('\n')}
       export default {
         name: 'component-doc',
         components: {
@@ -70,7 +76,7 @@ module.exports = (source) => {
         }
       }
     </script>`;
-  } else if (content.indexOf('<script>') === 0) { // 硬编码，有待改善
+  } else if (content.indexOf('<script') === 0) { // 硬编码，有待改善
     start = content.indexOf('</script>') + '</script>'.length;
     pageScript = content.slice(0, start);
   }
@@ -78,9 +84,10 @@ module.exports = (source) => {
   output.push(content.slice(start));
   const result = `
   <template>
-    <section class="content element-doc">
+    <section class="content zdp-lib-doc" id="zdp-lib-doc">
       ${output.join('')}
     </section>
+    <nav-right />
   </template>
   ${pageScript}
   ${styles.join('\n')}

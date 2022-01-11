@@ -19,8 +19,8 @@
           </template>
           <el-menu-item
             v-for="child in menu.child"
-            :key="child.key"
-            :index="child.key"
+            :key="child.path"
+            :index="child.path"
             :route="{path: child.path}"
           >
             {{ child.title }}
@@ -28,7 +28,10 @@
         </el-sub-menu>
       </el-menu>
     </div>
-    <div class="doc-base-layout_right">
+    <div
+      class="doc-base-layout_right"
+      @scroll="scrollHandler"
+    >
       <router-view />
     </div>
   </div>
@@ -38,6 +41,31 @@
 import { computed, defineComponent, onMounted, Ref, ref } from 'vue';
 import { useRoute } from 'vue-router'
 import { navGenerator, NavType } from '~/utils/route'
+
+interface HandlerType {
+  (e:Event): void;
+}
+const scrollhandlers: HandlerType[] = []
+
+// 注册滚动回调
+export const registryScrollHandler = (handler: HandlerType) => {
+  if(typeof handler === 'function') {
+    scrollhandlers.push(handler)
+  } else {
+    throw new Error('registryScrollHandler 实参应为 function 类型')
+  }
+}
+
+// 注销滚动回调
+export const removeScrollHandler = (handler: HandlerType) => {
+  for(let i=0; i<scrollhandlers.length; i++) {
+    if(handler === scrollhandlers[i]) {
+      scrollhandlers.splice(i, 0)
+      return true
+    }
+  }
+  return false
+}
 
 export default defineComponent({
   name: 'BaseLayout',
@@ -50,6 +78,7 @@ export default defineComponent({
       console.log(key, keyPath)
     }
 
+    // 获取默认激活菜单
     const defaultActive = computed(() => {
       return route.path
     })
@@ -58,6 +87,14 @@ export default defineComponent({
     const menus: Ref<NavType[]> = ref([])
     const loadNavMenus = () => {
       menus.value = navGenerator()
+      console.log(menus.value)
+    }
+
+    // 页面滚动
+    const scrollHandler = (e: Event) => {
+      scrollhandlers.forEach((handler) => {
+        handler(e)
+      })
     }
 
     onMounted(() => {
@@ -68,7 +105,8 @@ export default defineComponent({
       handleOpen,
       handleClose,
       menus,
-      defaultActive
+      defaultActive,
+      scrollHandler
     }
   }
 })
@@ -88,6 +126,8 @@ export default defineComponent({
 .doc-base-layout_right {
   flex: 1;
   padding: 0 30px;
+  overflow: auto;
+  position: relative;
 }
 .doc-base-layout_menu-label {
   font-weight: 800;

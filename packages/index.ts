@@ -1,8 +1,7 @@
 import { App } from 'vue';
 import TestBlock from './components/test-block';
 import { imageReview } from './components/image-view';
-
-console.log('abc')
+import TestFunction from './components/functionTest'
 
 const components = [TestBlock];
 
@@ -20,8 +19,13 @@ export {
   imageReview
 }
 
+export {
+  TestFunction
+}
+
 export default {
   install,
   TestBlock,
-  imageReview
+  imageReview,
+  TestFunction
 };
