@@ -8,5 +8,6 @@
 *.scss
 *.woff
 *.ttf
+**/*.test.ts
 
 .eslintrc.js

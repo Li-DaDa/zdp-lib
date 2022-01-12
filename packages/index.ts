@@ -1,7 +1,7 @@
 import { App } from 'vue';
 import TestBlock from './components/test-block';
 import { imageReview } from './components/image-view';
-import TestFunction from './components/functionTest'
+import TestFunction from './functions/functionTest'
 
 const components = [TestBlock];
 

@@ -2,6 +2,7 @@
 /config
 /examples
 /packages
+/coverage
 
 yarn-error.log
 yarn.lock
