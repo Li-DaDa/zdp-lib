@@ -14,7 +14,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue'
-  import { TestFunction } from '../../../packages'
+  import { TestFunction } from 'zdp-lib'
 
   export default defineComponent({
     setup() {

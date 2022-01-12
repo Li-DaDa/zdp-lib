@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-  import { TestBlock } from '../../../packages'
+  import { TestBlock } from 'zdp-lib'
   import { defineComponent } from 'vue'
 
   export default defineComponent({

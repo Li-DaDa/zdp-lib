@@ -16,6 +16,7 @@ module.exports = merge(baseConfig, {
   resolve: {
     alias: {
       '~': resolve('../examples'),
+      'zdp-lib': resolve('../packages')
     }
   },
   plugins: [

@@ -10,7 +10,7 @@
         </div>
         <div
           class="doc-index_container-btn"
-          @click="$router.push('/guide/test')"
+          @click="$router.push('/guide/introduce')"
         >
           进入文档
         </div>
